@@ -10,9 +10,13 @@ from time import sleep
 def format_currency(value):
     return locale.currency(value,grouping=True)
 
+def truncate(item, length):
+    return item[:length]
+
 def list_products(products):
+    print(f"| idx |    Model   | Magazine |{" " * 33}  Description  {" " * 33}|")
     for idx, product in enumerate(products, 1):
-        print(f"{idx}: {product['model']} {product['magazine']}")
+        print(f"|{idx:^5}| {product['model']:<10} |{truncate(product['magazine'], 9):<9} |{truncate(product['desc'], 80):>80} |")
 
 def add_product(products):
 
@@ -80,7 +84,7 @@ def change_product(placeholder):
 
 def view_products(idx, products):
     product = products[idx - 1]
-    print(f"product: {product['model']} / {product['desc']} / With {product['magazine']} bullets in the magazine")
+    print(f"product: {product['model']} | {product['desc']} Comes with {product['magazine']} bullets in the magazine")
     return product
 
 def load_data(filename): 
@@ -118,7 +122,7 @@ products = load_data('db_products.csv')
 
 while True:
     list_products(products)
-    print("Vill du visa en product(1) eller vill du lägga till en product(2) eller ändra produkt(3) eller ta bort produkt(4) eller stänga av och spara(5)")
+    print("\n1: Visa ett vapen\n2: Lägga till ett vapen\n3: Ändra ett vapen\n4: Ta bort ett vapen\n5: Avsluta och spara")
     option = int(input())
 
     if option ==1:
